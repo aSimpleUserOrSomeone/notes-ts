@@ -16,11 +16,17 @@
 body {
 	width: 100vw;
 	height: 100vh;
+
+	display: flex;
+	flex-direction: column;
+	justify-content: start;
+	align-items: center;
 }
 
 header {
 	width: 100vw;
 	height: min-content;
+	min-height: 35px;
 	padding: 0.35rem;
 	background-color: var(--green1);
 	box-shadow: 0 0 1.25rem 0.5rem var(--cyan2);
@@ -40,7 +46,7 @@ header {
 	border-radius: 0.55rem;
 	border: none;
 	box-shadow: 0 0 0.5rem 0rem hsl(0, 0%, 30%);
-	transition: box-shadow 0.2s, background-color 0.2s;
+	transition: box-shadow 0.15s, background-color 0.15s;
 }
 .new-note-btn:hover {
 	background-color: var(--cyan2);
@@ -66,4 +72,50 @@ header {
 }
 
 main {
+	flex-grow: 1;
+	width: 100vw;
+	min-height: 360px;
+	padding: 0.5rem;
+	position: relative;
+}
+
+.note {
+	min-width: 7rem;
+	min-height: 6rem;
+	padding: 0.25rem;
+	position: absolute;
+	border: 1px solid hsl(0, 0%, 80%);
+	background-color: white;
+
+	resize: both;
+	overflow: auto;
+
+	transition: background-color 0.25s;
+}
+
+.note.active {
+	background-color: hsl(172, 100%, 95%);
+}
+
+.textfield-p {
+}
+
+.close-btn {
+	border: none;
+	border-radius: 0.25rem;
+	background-color: transparent;
+	background-image: url(../img/close.png);
+	background-size: cover;
+	width: 1.1rem;
+	height: 1.1rem;
+	position: absolute;
+	right: 0.25rem;
+	top: 0.25rem;
+
+	transition: background-color 0.25s;
+}
+
+.close-btn:hover {
+	background-color: hsl(2, 100%, 90%);
+	cursor: pointer;
 }

@@ -8,11 +8,7 @@ class Note {
 	private posZ: number //minimum posZ is 0 NOT 1 (represents indexZ)
 	public instance: HTMLElement
 
-	public updateZ() {
-		Note.allNotes.forEach((el, i) => (el.posZ = i))
-	}
-
-	static sortZ() {
+	static SortZ() {
 		//sorting does nothing
 		if (Note.allNotes.length < 2) return
 
@@ -23,10 +19,51 @@ class Note {
 		})
 	}
 
-	private instantiate() {
-		var myNote = document.createElement('div')
+	public UpdateZ() {
+		Note.allNotes.forEach((el, i) => (el.posZ = i))
+	}
 
-		return myNote
+	private ActivateMe() {
+		Note.allNotes.forEach((el) => {
+			el.instance.classList.remove('active')
+		})
+		this.instance.classList.add('active')
+	}
+
+	private MoveMe() {
+		var pos1, pos2, pos3, pos4
+
+		const dragMouseDown = (e) => {
+			e = e || window.event
+			e.preventDefault()
+
+			pos3 = e.clientX
+			pos4 = e.clientY
+		}
+
+		this.instance.onmousedown = dragMouseDown
+	}
+
+	private Instantiate() {
+		this.instance = document.createElement('div')
+		this.instance.classList.add('note')
+
+		const textField: HTMLElement = document.createElement('p')
+		textField.classList.add('textfield-p')
+		textField.textContent = 'Note'
+		this.instance.append(textField)
+
+		const closeBtn: HTMLElement = document.createElement('button')
+		closeBtn.classList.add('close-btn')
+		closeBtn.addEventListener('click', () => {
+			this.Destroy()
+		})
+		this.instance.append(closeBtn)
+
+		document.querySelector('main').append(this.instance)
+
+		this.instance.click = this.ActivateMe
+		this.MoveMe()
 	}
 
 	constructor() {
@@ -38,11 +75,11 @@ class Note {
 		Note.nowCount++
 		this.posZ = Note.nowCount + 1
 
-		this.instantiate()
+		this.Instantiate()
 		Note.allNotes.push(this)
 	}
 
-	public destroy() {
+	public Destroy() {
 		Note.nowCount--
 		this.instance.remove()
 
@@ -50,3 +87,16 @@ class Note {
 		Note.allNotes.splice(Note.allNotes.indexOf(this), 1)
 	}
 }
+
+const addNewNote = () => {
+	const newNote: Note = new Note()
+}
+
+const newNoteBtn: HTMLElement = document.querySelector('.new-note-btn')
+const setup = () => {
+	newNoteBtn.addEventListener('click', () => {
+		addNewNote()
+	})
+}
+
+setup()

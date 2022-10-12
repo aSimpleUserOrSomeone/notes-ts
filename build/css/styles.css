@@ -1,0 +1,69 @@
+:root {
+	--green1: #dbf0e1;
+	--green2: #e2f8d5;
+	--green3: #bad9ba;
+	--cyan1: #b6f0e7;
+	--cyan2: #b9d8cb;
+}
+
+* {
+	font-family: 'Roboto', sans-serif;
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+body {
+	width: 100vw;
+	height: 100vh;
+}
+
+header {
+	width: 100vw;
+	height: min-content;
+	padding: 0.35rem;
+	background-color: var(--green1);
+	box-shadow: 0 0 1.25rem 0.5rem var(--cyan2);
+
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.new-note-btn {
+	background-image: url(../img/new-document.png);
+	background-size: cover;
+	width: 2rem;
+	height: 2rem;
+
+	background-color: var(--cyan1);
+	border-radius: 0.55rem;
+	border: none;
+	box-shadow: 0 0 0.5rem 0rem hsl(0, 0%, 30%);
+	transition: box-shadow 0.2s, background-color 0.2s;
+}
+.new-note-btn:hover {
+	background-color: var(--cyan2);
+	box-shadow: 0 0 0.5rem 0rem hsl(0, 0%, 5%);
+	cursor: pointer;
+}
+.new-note-btn:active {
+	background-color: white;
+	box-shadow: 0 0 0.5rem 0rem white;
+}
+
+.counters-div {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: flex-start;
+}
+
+.counter-all-p {
+}
+
+.counter-now-p {
+}
+
+main {
+}

@@ -75,20 +75,29 @@ main {
 	flex-grow: 1;
 	width: 100vw;
 	min-height: 360px;
+	overflow: hidden;
 	padding: 0.5rem;
 	position: relative;
 }
 
 .note {
-	min-width: 7rem;
-	min-height: 6rem;
-	padding: 0.25rem;
+	min-width: 9rem;
+	min-height: 7rem;
+	padding: 0.45rem;
 	position: absolute;
 	border: 1px solid hsl(0, 0%, 80%);
 	background-color: white;
 
 	resize: both;
 	overflow: auto;
+
+	display: grid;
+
+	grid-template-rows: auto 1fr;
+	grid-template-columns: 1fr 1.25rem;
+
+	column-gap: 0.5rem;
+	row-gap: 0.75rem;
 
 	transition: background-color 0.25s;
 }
@@ -97,7 +106,12 @@ main {
 	background-color: hsl(172, 100%, 95%);
 }
 
-.textfield-p {
+.title-h3 {
+	grid-row-start: 1;
+	grid-column-start: 1;
+
+	grid-row-end: 2;
+	grid-column-end: 2;
 }
 
 .close-btn {
@@ -106,13 +120,28 @@ main {
 	background-color: transparent;
 	background-image: url(../img/close.png);
 	background-size: cover;
-	width: 1.1rem;
-	height: 1.1rem;
-	position: absolute;
-	right: 0.25rem;
-	top: 0.25rem;
+	width: 100%;
+	aspect-ratio: 1;
+	position: static;
+
+	grid-row-start: 1;
+	grid-column-start: 2;
+
+	grid-row-end: 2;
+	grid-column-end: 3;
 
 	transition: background-color 0.25s;
+}
+
+.textfield-p {
+	min-height: 2rem;
+	width: 100%;
+
+	grid-row-start: 2;
+	grid-column-start: 1;
+
+	grid-row-end: 3;
+	grid-column-end: 3;
 }
 
 .close-btn:hover {

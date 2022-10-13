@@ -43,7 +43,11 @@ class Note {
 	}
 
 	private MoveMe(element: HTMLElement) {
-		var pos1, pos2
+		var pos1: number, pos2: number
+		var minX: number = 8
+		var minY: number = 8
+		var maxX: number = this.instance.parentElement.clientWidth - this.instance.clientWidth - 8
+		var maxY: number = this.instance.parentElement.clientHeight - this.instance.clientHeight - 8
 
 		const dragMouseDown = (e) => {
 			e = e || window.event
@@ -62,12 +66,34 @@ class Note {
 			this.posY = e.clientY
 			this.ActivateMe()
 
-			this.instance.style.top = this.instance.offsetTop - pos2 + 'px'
-			this.instance.style.left = this.instance.offsetLeft - pos1 + 'px'
+			var moveToY = this.instance.offsetTop - pos2
+			var moveToX = this.instance.offsetLeft - pos1
+
+			//check if outside border
+			if (moveToX <= minX) {
+				moveToX = 9
+				closeDragElement()
+			}
+			if (moveToY <= minY) {
+				moveToY = 9
+				closeDragElement()
+			}
+			if (moveToX >= maxX) {
+				moveToX -= 9
+				closeDragElement()
+			}
+			if (moveToY >= maxY) {
+				moveToY -= 9
+				closeDragElement()
+			}
+
+			this.instance.style.top = moveToY + 'px'
+			this.instance.style.left = moveToX + 'px'
 		}
 
 		const closeDragElement = () => {
 			this.DeactivateMe()
+
 			document.onmouseup = null
 			document.onmousemove = null
 		}
@@ -104,8 +130,8 @@ class Note {
 	}
 
 	constructor() {
-		this.posX = 0
-		this.posY = 0
+		this.posX = 10
+		this.posY = 10
 		this.posZ = Note.nowCount
 
 		Note.allCount++

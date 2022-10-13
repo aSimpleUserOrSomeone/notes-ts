@@ -85,6 +85,8 @@ main {
 	min-height: 7rem;
 	padding: 0.45rem;
 	position: absolute;
+	top: 10px;
+	left: 10px;
 	border: 1px solid hsl(0, 0%, 80%);
 	background-color: white;
 

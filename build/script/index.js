@@ -13,8 +13,8 @@ var Note = /** @class */ (function () {
                 el.instance.style.zIndex = el.posZ.toString();
             });
         };
-        this.posX = 0;
-        this.posY = 0;
+        this.posX = 10;
+        this.posY = 10;
         this.posZ = Note.nowCount;
         Note.allCount++;
         Note.nowCount++;
@@ -42,6 +42,10 @@ var Note = /** @class */ (function () {
     Note.prototype.MoveMe = function (element) {
         var _this = this;
         var pos1, pos2;
+        var minX = 8;
+        var minY = 8;
+        var maxX = this.instance.parentElement.clientWidth - this.instance.clientWidth - 8;
+        var maxY = this.instance.parentElement.clientHeight - this.instance.clientHeight - 8;
         var dragMouseDown = function (e) {
             e = e || window.event;
             _this.posX = e.clientX;
@@ -56,8 +60,27 @@ var Note = /** @class */ (function () {
             _this.posX = e.clientX;
             _this.posY = e.clientY;
             _this.ActivateMe();
-            _this.instance.style.top = _this.instance.offsetTop - pos2 + 'px';
-            _this.instance.style.left = _this.instance.offsetLeft - pos1 + 'px';
+            var moveToY = _this.instance.offsetTop - pos2;
+            var moveToX = _this.instance.offsetLeft - pos1;
+            //check if outside border
+            if (moveToX <= minX) {
+                moveToX = 9;
+                closeDragElement();
+            }
+            if (moveToY <= minY) {
+                moveToY = 9;
+                closeDragElement();
+            }
+            if (moveToX >= maxX) {
+                moveToX -= 9;
+                closeDragElement();
+            }
+            if (moveToY >= maxY) {
+                moveToY -= 9;
+                closeDragElement();
+            }
+            _this.instance.style.top = moveToY + 'px';
+            _this.instance.style.left = moveToX + 'px';
         };
         var closeDragElement = function () {
             _this.DeactivateMe();

@@ -1,4 +1,4 @@
-class Note {
+export class Note {
 	static allCount: number = 0
 	static nowCount: number = 0
 	static allNotes: Array<Note> = []
@@ -9,8 +9,8 @@ class Note {
 	public instance: HTMLElement
 
 	private UpdateCountHTML() {
-		const allCountP = document.querySelector('.counter-all-p')
-		const nowCountP = document.querySelector('.counter-now-p')
+		const allCountP: HTMLElement = document.querySelector('.counter-all-p')
+		const nowCountP: HTMLElement = document.querySelector('.counter-now-p')
 
 		allCountP.textContent = `Przebieg: ${Note.allCount}`
 		nowCountP.textContent = `Na lodówce: ${Note.nowCount}`
@@ -73,16 +73,15 @@ class Note {
 			if (moveToX <= minX) {
 				moveToX = 9
 				closeDragElement()
-			}
-			if (moveToY <= minY) {
-				moveToY = 9
-				closeDragElement()
-			}
-			if (moveToX >= maxX) {
+			} else if (moveToX >= maxX) {
 				moveToX -= 9
 				closeDragElement()
 			}
-			if (moveToY >= maxY) {
+
+			if (moveToY <= minY) {
+				moveToY = 9
+				closeDragElement()
+			} else if (moveToY >= maxY) {
 				moveToY -= 9
 				closeDragElement()
 			}
@@ -151,16 +150,3 @@ class Note {
 		Note.allNotes.splice(Note.allNotes.indexOf(this), 1)
 	}
 }
-
-const addNewNote = () => {
-	new Note()
-}
-
-const newNoteBtn: HTMLElement = document.querySelector('.new-note-btn')
-const setup = () => {
-	newNoteBtn.addEventListener('click', () => {
-		addNewNote()
-	})
-}
-
-setup()

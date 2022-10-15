@@ -40,6 +40,7 @@ module.exports = {
 	},
 	plugins: [
 		new HtmlWebpackPlugin({
+			favicon: 'src/res/fridge.svg',
 			title: 'Lodówka',
 			filename: 'index.html',
 			template: path.resolve(__dirname, 'src/html/index.html'),

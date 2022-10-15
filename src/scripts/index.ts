@@ -1,5 +1,6 @@
 import { Note } from './note'
 import '../styles/styles.css'
+import './tiny'
 
 const addNewNote = () => {
 	new Note()

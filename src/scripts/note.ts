@@ -104,10 +104,9 @@ export class Note {
 		this.instance = document.createElement('div')
 		this.instance.classList.add('note')
 
-		const titleH3: HTMLElement = document.createElement('h3')
-		titleH3.classList.add('title-h3')
-		titleH3.textContent = 'Title'
-		this.instance.append(titleH3)
+		const editBtn: HTMLElement = document.createElement('button')
+		editBtn.classList.add('edit-btn')
+		this.instance.append(editBtn)
 
 		const closeBtn: HTMLElement = document.createElement('button')
 		closeBtn.classList.add('close-btn')

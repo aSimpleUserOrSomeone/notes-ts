@@ -108,7 +108,7 @@ main {
 	box-shadow: 0 4px 6px 0 var(--cyan2);
 }
 
-button {
+.note button {
 	border: none;
 	border-radius: 0.25rem;
 	background-color: transparent;
@@ -162,4 +162,14 @@ button:hover {
 	grid-column-end: 4;
 
 	overflow: auto;
+}
+
+#mytextarea {
+	display: block;
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	translate: (-50%, -50%);
+
+	max-width: 850px;
 }

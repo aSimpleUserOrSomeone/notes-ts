@@ -1,7 +1,8 @@
-export class Note {
+class Note {
 	static allCount: number = 0
 	static nowCount: number = 0
 	static allNotes: Array<Note> = []
+	static editorOpen: boolean = false
 
 	public posX: number
 	public posY: number
@@ -50,6 +51,9 @@ export class Note {
 		var maxY: number = this.instance.parentElement.clientHeight - this.instance.clientHeight - 8
 
 		const dragMouseDown = (e) => {
+			maxX = this.instance.parentElement.clientWidth - this.instance.clientWidth - 8
+			maxY = this.instance.parentElement.clientHeight - this.instance.clientHeight - 8
+
 			e = e || window.event
 
 			this.posX = e.clientX
@@ -74,7 +78,7 @@ export class Note {
 				moveToX = 9
 				closeDragElement()
 			} else if (moveToX >= maxX) {
-				moveToX -= 9
+				moveToX = this.instance.parentElement.clientWidth - this.instance.clientWidth - 9
 				closeDragElement()
 			}
 
@@ -82,7 +86,7 @@ export class Note {
 				moveToY = 9
 				closeDragElement()
 			} else if (moveToY >= maxY) {
-				moveToY -= 9
+				moveToY = this.instance.parentElement.clientHeight - this.instance.clientHeight - 9
 				closeDragElement()
 			}
 
@@ -106,6 +110,11 @@ export class Note {
 
 		const editBtn: HTMLElement = document.createElement('button')
 		editBtn.classList.add('edit-btn')
+		editBtn.addEventListener('click', () => {
+			const textEditor: HTMLElement = document.createElement('textarea')
+			textEditor.id = 'mytextarea'
+			document.querySelector('main').append(textEditor)
+		})
 		this.instance.append(editBtn)
 
 		const closeBtn: HTMLElement = document.createElement('button')
@@ -149,3 +158,5 @@ export class Note {
 		Note.allNotes.splice(Note.allNotes.indexOf(this), 1)
 	}
 }
+
+export default Note

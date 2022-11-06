@@ -1,6 +1,6 @@
-import { Note } from './note'
+import Note from './note'
+import { editor } from './tiny'
 import '../styles/styles.css'
-import './tiny'
 
 const addNewNote = () => {
 	new Note()
@@ -11,6 +11,6 @@ const setup = () => {
 	newNoteBtn.addEventListener('click', () => {
 		addNewNote()
 	})
+	editor()
 }
-
 setup()

@@ -1,3 +1,6 @@
+import './tiny'
+import { create } from './tiny'
+
 class Note {
 	static allCount: number = 0
 	static nowCount: number = 0
@@ -114,6 +117,9 @@ class Note {
 			const textEditor: HTMLElement = document.createElement('textarea')
 			textEditor.id = 'mytextarea'
 			document.querySelector('main').append(textEditor)
+			console.log(textEditor)
+
+			create('mytextarea')
 		})
 		this.instance.append(editBtn)
 

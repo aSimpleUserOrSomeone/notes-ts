@@ -164,12 +164,33 @@ button:hover {
 	overflow: auto;
 }
 
-#mytextarea {
-	display: block;
-	position: absolute;
+.tox-tinymce {
+	z-index: 2147483647;
+	position: fixed;
+	width: calc(100vw - 160px);
+	height: 80vh;
+	min-width: 240px;
+	min-height: 160px;
+	top: 10%;
 	left: 50%;
-	top: 50%;
-	translate: (-50%, -50%);
+	transform: translateX(-50%);
+}
 
-	max-width: 850px;
+#overlay {
+	position: fixed;
+	width: 100vw;
+	height: 100vh;
+	top: 0%;
+	left: 0%;
+	z-index: 1000;
+}
+.overlay-shown {
+	display: block;
+	pointer-events: initial;
+	background-color: rgb(0, 0, 0, 0.2);
+}
+.overlay-hidden {
+	display: none;
+	pointer-events: none;
+	background-color: transparent;
 }

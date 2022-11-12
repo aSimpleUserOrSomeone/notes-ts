@@ -1,5 +1,4 @@
 import Note from './note'
-import { editor } from './tiny'
 import '../styles/styles.css'
 
 const addNewNote = () => {
@@ -11,6 +10,5 @@ const setup = () => {
 	newNoteBtn.addEventListener('click', () => {
 		addNewNote()
 	})
-	editor()
 }
 setup()

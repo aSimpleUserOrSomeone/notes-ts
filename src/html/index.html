@@ -11,14 +11,6 @@
 			src="https://cdn.tiny.cloud/1/ngq719t9qs7liuu5cgxe5lj3l375ul28z3fsxznzmq41r0wn/tinymce/6/tinymce.min.js"
 			referrerpolicy="origin"
 		></script>
-		<script>
-			tinymce.init({
-				selector: '#mytextarea',
-				plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount',
-				toolbar:
-					'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table | align lineheight | numlist bullist indent outdent | emoticons charmap | removeformat',
-			})
-		</script>
 		<title><%= htmlWebpackPlugin.options.title %></title>
 	</head>
 	<body>
@@ -30,7 +22,7 @@
 			</div>
 		</header>
 		<main>
-			<textarea name="mytextarea" id="mytextarea"></textarea>
+			<div id="overlay" class="overlay-hidden"></div>
 			<!-- <div class="note">
 				<button class="edit-btn"></button>
 				<button class="close-btn"></button>

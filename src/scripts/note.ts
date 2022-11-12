@@ -1,4 +1,3 @@
-import './tiny'
 import { create } from './tiny'
 
 class Note {
@@ -117,7 +116,6 @@ class Note {
 			const textEditor: HTMLElement = document.createElement('textarea')
 			textEditor.id = 'mytextarea'
 			document.querySelector('main').append(textEditor)
-			console.log(textEditor)
 
 			create('mytextarea')
 		})

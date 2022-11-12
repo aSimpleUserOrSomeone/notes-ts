@@ -1,19 +1,35 @@
 import tinymce from '../../node_modules/tinymce/tinymce'
+const overlay: HTMLElement = document.querySelector('#overlay')
+
+const saveText = () => alert('Save')
+const closeEditor = (selector: string) => {
+	overlay.classList.remove('overlay-shown')
+	overlay.classList.add('overlay-hidden')
+
+	tinymce.remove()
+	document.querySelector(`#${selector}`).remove()
+}
 
 export const create = (selector: string) => {
+	//create the overlay
+	overlay.classList.remove('overlay-hidden')
+	overlay.classList.add('overlay-shown')
+
+	//create tinymce editor
 	tinymce.init({
-		selector: `#${selector}`,
-		plugins: 'autoresize',
-		max_width: 850,
-		max_height: 500,
 		resize: false,
+		selector: `#${selector}`,
+		toolbar: 'saveButton closeButton',
+		setup: (editor) => {
+			editor.ui.registry.addButton('saveButton', {
+				icon: 'save',
+				onAction: (_) => saveText(),
+			})
 
-		// display: block,
-		// position: absolute,
-		// left: 50%,
-		// top: 50%,
-		// translate: (-50%, -50%),
-
-		// max-width: 850px
+			editor.ui.registry.addButton('closeButton', {
+				icon: 'close',
+				onAction: (_) => closeEditor(selector),
+			})
+		},
 	})
 }

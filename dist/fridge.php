@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="pl-PL">
 
 <head>
@@ -17,9 +18,12 @@
 <body>
     <header>
         <button class="new-note-btn"></button>
+        <form action="./index.php">
+            <button type="submit" class="back-btn">Go Back</button>
+        </form>
         <div class="counters-div">
-            <p class="counter-all-p">Przebieg: 0</p>
-            <p class="counter-now-p">Na lodówce: 0</p>
+            <p class="counter-all-p">Total count: 0</p>
+            <p class="counter-now-p">Notes now: 0</p>
         </div>
     </header>
     <main>
@@ -31,5 +35,32 @@
 			</div> -->
     </main>
 </body>
-
 </html>
+
+<?php
+    session_start();
+
+    if(!isset($_SESSION['fridge'])) {
+        header('Location: ../index.php');
+        exit();
+    }
+
+    require_once "./php/connect.php";
+
+    $connection = @new mysqli($host, $db_user, $db_password, $db_name);
+    $table_name = $_SESSION['fridge_name'];
+    $sql = "SELECT * FROM $table_name;";
+    $result = @$connection->query($sql);
+    $rows = [];
+
+    while($row = mysqli_fetch_assoc($result)) {
+        $rows[] = $row;
+    }
+
+    if($rows) {
+        echo $rows[0]['content'];
+        echo $rows[1]['content'];
+        echo json_encode($rows);
+        file_put_contents("rows.json", json_encode($rows));
+    }
+?>

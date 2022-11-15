@@ -23,6 +23,70 @@ body {
 	align-items: center;
 }
 
+button {
+	background-color: var(--cyan1);
+	border-radius: 0.55rem;
+	border: none;
+	transition: box-shadow 0.15s, background-color 0.15s, text-shadow 0.15s, color 0.15s;
+}
+
+.enter-form {
+	position: fixed;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -60%);
+	width: auto;
+	height: 40vh;
+
+	display: grid;
+	grid-template-columns: 1fr;
+	grid-template-rows: 1fr 1fr 1fr;
+}
+
+h1 {
+	text-align: center;
+	text-shadow: 0 0 3px black, 0 0 16px var(--green2);
+	color: var(--cyan1);
+	font-size: 4em;
+
+	align-self: center;
+}
+h1:hover {
+	cursor: default;
+}
+.enter-form > .container {
+	align-self: center;
+	justify-self: center;
+
+	align-items: baseline;
+	display: flex;
+	gap: 1.5em;
+}
+.enter-form label {
+	font-size: 1.25em;
+}
+.enter-form input[type='text'] {
+	font-size: 1.25em;
+	line-height: 1em;
+	padding: 0.2em;
+}
+.enter-form > button {
+	font-size: 1.5em;
+	font-weight: bold;
+	padding: 0.75em;
+	box-shadow: 0 0 0.5rem 0rem hsl(0, 0%, 30%);
+
+	align-self: center;
+	justify-self: center;
+}
+.enter-form > button:hover {
+	background-color: white;
+	box-shadow: 0 0 0.5rem 0rem white;
+	color: white;
+	text-shadow: 0 0 0.2em black;
+	cursor: pointer;
+}
+
 header {
 	width: 100vw;
 	height: min-content;
@@ -41,21 +105,34 @@ header {
 	background-size: cover;
 	width: 2rem;
 	height: 2rem;
-
-	background-color: var(--cyan1);
-	border-radius: 0.55rem;
-	border: none;
 	box-shadow: 0 0 0.5rem 0rem hsl(0, 0%, 30%);
-	transition: box-shadow 0.15s, background-color 0.15s;
 }
 .new-note-btn:hover {
-	background-color: var(--cyan2);
-	box-shadow: 0 0 0.5rem 0rem hsl(0, 0%, 5%);
+	background-color: white;
+	box-shadow: 0 0 0.5rem 0rem white;
 	cursor: pointer;
 }
 .new-note-btn:active {
+	background-color: var(--cyan2);
+	box-shadow: 0 0 0.5rem 0rem hsl(0, 0%, 5%);
+}
+
+.back-btn {
+	font-weight: 600;
+	width: auto;
+	height: 2rem;
+	padding-right: 1em;
+	padding-left: 1em;
+	box-shadow: 0 0 0.5rem 0rem hsl(0, 0%, 30%);
+}
+.back-btn:hover {
 	background-color: white;
 	box-shadow: 0 0 0.5rem 0rem white;
+	cursor: pointer;
+}
+.back-btn:active {
+	background-color: var(--cyan2);
+	box-shadow: 0 0 0.5rem 0rem hsl(0, 0%, 5%);
 }
 
 .counters-div {
@@ -165,7 +242,7 @@ button:hover {
 }
 
 .tox-tinymce {
-	z-index: 2147483647;
+	z-index: 1200;
 	position: fixed;
 	width: calc(100vw - 160px);
 	height: 80vh;

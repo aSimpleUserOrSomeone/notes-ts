@@ -112,24 +112,25 @@ class Note {
 		this.instance.classList.add('note')
 
 		const editBtn: HTMLElement = document.createElement('button')
+		const closeBtn: HTMLElement = document.createElement('button')
+		const textField: HTMLElement = document.createElement('p')
+
 		editBtn.classList.add('edit-btn')
 		editBtn.addEventListener('click', () => {
 			const textEditor: HTMLElement = document.createElement('textarea')
 			textEditor.id = 'mytextarea'
 			document.querySelector('main').append(textEditor)
 
-			create('mytextarea')
+			create('mytextarea', textField)
 		})
 		this.instance.append(editBtn)
 
-		const closeBtn: HTMLElement = document.createElement('button')
 		closeBtn.classList.add('close-btn')
 		closeBtn.addEventListener('click', () => {
 			this.Destroy()
 		})
 		this.instance.append(closeBtn)
 
-		const textField: HTMLElement = document.createElement('p')
 		textField.classList.add('textfield-p')
 		textField.textContent = 'Note'
 		this.instance.append(textField)

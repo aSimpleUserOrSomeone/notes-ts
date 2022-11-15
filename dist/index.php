@@ -15,9 +15,12 @@
 </head>
 
 <body>
-    <form action="./fridge.php">
+    <form action="./php/create_fridge.php" method="POST" class="enter-form">
+        <h1>The Fridge!</h1>
+        <div class="container">
+            <label for="user">User:</label><input type="text" name="name" id="name">
+        </div>
         <button type="submit">To Fridge</button>
     </form>
 </body>
-
 </html>

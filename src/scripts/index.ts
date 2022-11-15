@@ -8,6 +8,7 @@ const addNewNote = () => {
 
 const newNoteBtn: HTMLElement = document.querySelector('.new-note-btn') as HTMLElement
 const setup = () => {
+	if (!newNoteBtn) return
 	newNoteBtn.addEventListener('click', () => {
 		addNewNote()
 	})

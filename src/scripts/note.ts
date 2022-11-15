@@ -40,6 +40,7 @@ class Note {
 	}
 
 	private DeactivateMe() {
+		if (!this.instance) return
 		if (this.instance.classList.contains('active')) {
 			this.instance.classList.remove('active')
 		}

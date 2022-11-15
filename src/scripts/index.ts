@@ -1,5 +1,6 @@
 import Note from './note'
 import '../styles/styles.css'
+import '../res/fridge.svg'
 
 const addNewNote = () => {
 	new Note()

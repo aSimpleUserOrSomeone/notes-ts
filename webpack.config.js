@@ -1,12 +1,12 @@
 const path = require('path')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
 module.exports = {
 	entry: {
 		bundle: path.resolve(__dirname, 'src/scripts/index.ts'),
 	},
 	output: {
-		path: path.resolve(__dirname, 'dist'),
+		path: path.resolve(__dirname, 'dist/build'),
 		filename: '[name].js',
 		clean: true,
 		assetModuleFilename: '[name][ext]',
@@ -25,7 +25,7 @@ module.exports = {
 		rules: [
 			{
 				test: /\.css$/,
-				use: ['style-loader', 'css-loader'],
+				use: [MiniCssExtractPlugin.loader, 'css-loader'],
 			},
 			{
 				test: /\.ts$/,
@@ -38,14 +38,7 @@ module.exports = {
 			},
 		],
 	},
-	plugins: [
-		new HtmlWebpackPlugin({
-			favicon: 'src/res/fridge.svg',
-			title: 'Lodówka',
-			filename: 'index.html',
-			template: path.resolve(__dirname, 'src/html/index.html'),
-		}),
-	],
+	plugins: [new MiniCssExtractPlugin()],
 	resolve: {
 		extensions: ['.ts', '.js'],
 	},

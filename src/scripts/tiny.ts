@@ -1,4 +1,5 @@
-import tinymce from '../../node_modules/tinymce/tinymce'
+const tinymce = require('tinymce')
+
 const overlay: HTMLElement = document.querySelector('#overlay')
 
 const saveText = () => alert('Save')

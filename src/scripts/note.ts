@@ -4,7 +4,6 @@ class Note {
 	static allCount: number = 0
 	static nowCount: number = 0
 	static allNotes: Array<Note> = []
-	static editorOpen: boolean = false
 
 	public posX: number
 	public posY: number
@@ -15,8 +14,8 @@ class Note {
 		const allCountP: HTMLElement = document.querySelector('.counter-all-p')
 		const nowCountP: HTMLElement = document.querySelector('.counter-now-p')
 
-		allCountP.textContent = `Przebieg: ${Note.allCount}`
-		nowCountP.textContent = `Na lodówce: ${Note.nowCount}`
+		allCountP.textContent = `Total count: ${Note.allCount}`
+		nowCountP.textContent = `Notes now: ${Note.nowCount}`
 	}
 
 	public SortZ = () => {

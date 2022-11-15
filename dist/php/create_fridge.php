@@ -23,6 +23,8 @@
             content text(262143),
             width int,
             height int,
+            totalCount int,
+            notesNow int,
             PRIMARY KEY (ID)
         );");
         $stmt->execute();

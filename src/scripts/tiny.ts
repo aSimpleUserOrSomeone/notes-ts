@@ -1,5 +1,3 @@
-import { Editor } from '../../node_modules/tinymce/tinymce'
-
 const tinymce = require('tinymce')
 
 const overlay: HTMLElement = document.querySelector('#overlay')

@@ -5,9 +5,13 @@ class Note {
 	static nowCount: number = 0
 	static allNotes: Array<Note> = []
 
+	public ID: number
 	public posX: number
 	public posY: number
 	public posZ: number //minimum posZ is 0 NOT 1 (represents indexZ)
+	public myContent: string
+	public myWidth: number
+	public myHeight: number
 	public instance: HTMLElement
 
 	private UpdateCountHTML() {
@@ -109,6 +113,10 @@ class Note {
 	private Instantiate() {
 		this.instance = document.createElement('div')
 		this.instance.classList.add('note')
+		this.instance.style.left = this.posX + 'px'
+		this.instance.style.top = this.posY + 'px'
+		this.instance.style.width = this.myWidth + 'px'
+		this.instance.style.height = this.myHeight + 'px'
 
 		const editBtn: HTMLElement = document.createElement('button')
 		const closeBtn: HTMLElement = document.createElement('button')
@@ -131,7 +139,7 @@ class Note {
 		this.instance.append(closeBtn)
 
 		textField.classList.add('textfield-p')
-		textField.textContent = 'Note'
+		textField.textContent = this.myContent
 		this.instance.append(textField)
 
 		document.querySelector('main').append(this.instance)
@@ -141,14 +149,33 @@ class Note {
 		this.UpdateCountHTML()
 	}
 
-	constructor() {
-		this.posX = 10
-		this.posY = 10
+	constructor(
+		noteID: number = undefined,
+		noteX: number = 10,
+		noteY: number = 10,
+		noteContent: string = 'Note',
+		noteWidth: number = 150,
+		noteHeight: number = 150,
+		noteTotalCount: number = undefined,
+		noteNotesNow: number = undefined
+	) {
+		//if arguments not passed creates just an empty note
+		this.ID = noteID || Note.allCount + 1
+		this.posX = noteX
+		this.posY = noteY
 		this.posZ = Note.nowCount
 
-		Note.allCount++
-		Note.nowCount++
-		this.posZ = Note.nowCount + 1
+		this.myContent = noteContent
+		this.myWidth = noteWidth
+		this.myHeight = noteHeight
+
+		if (noteTotalCount) Note.allCount = noteTotalCount
+		else Note.allCount++
+
+		if (noteNotesNow) Note.nowCount = noteNotesNow
+		else Note.nowCount++
+
+		this.posZ = this.ID
 
 		this.Instantiate()
 		Note.allNotes.push(this)

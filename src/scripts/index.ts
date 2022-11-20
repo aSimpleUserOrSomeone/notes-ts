@@ -9,4 +9,8 @@ const setup = () => {
 		new Note()
 	})
 }
+
+const callme = () => {
+	console.log('Function from index was called!')
+}
 setup()

@@ -11,11 +11,10 @@
     require_once 'connect.php';
     $connection = @new mysqli($host, $db_user, $db_password, $db_name);
 
-    if($connection -> connect_error != 0) {
+    if($connection -> connect_error) {
         echo "Connection error: " . $connection->connect_error . " Opis ". $connection->connect_error;
     } else {
         //name is what was in the input
-        file_put_contents('../notesData.json', json_encode($_POST['name']));
         $_SESSION['fridge_name'] = $_POST['name'];
         $name = $_POST['name'];
 

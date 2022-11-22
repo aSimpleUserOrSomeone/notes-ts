@@ -17,9 +17,7 @@
 
 <body>
     <header>
-        <form action="./php/create_note.php">
-            <button class="new-note-btn"></button>
-        </form>
+        <button class="new-note-btn"></button>
         <form action="./index.php">
             <button type="submit" class="back-btn">Go Back</button>
         </form>
@@ -42,7 +40,6 @@
 <?php
     session_start();
 
-    // echo sprintf('<script>console.log('. $_SESSION  .')</script>');
     if(!isset($_SESSION['fridge_name'])) {
         header('Location: ../index.php');
         exit();
@@ -53,7 +50,11 @@
     $connection = @new mysqli($host, $db_user, $db_password, $db_name);
     $table_name = $_SESSION['fridge_name'];
     $sql = "SELECT * FROM $table_name;";
-    $contents = @$connection->query($sql);
-    $results = json_encode($contents);
-
+    $result = @$connection->query($sql);
+    $data = [];
+    while($row = mysqli_fetch_assoc($result))
+    {
+        $data[] = $row;  
+    }
+    file_put_contents("notesData.json", json_encode($data));
 ?>

@@ -1,4 +1,5 @@
 import { create } from './tiny'
+const fs = require('fs')
 
 class Note {
 	static allCount: number = 0
@@ -108,6 +109,27 @@ class Note {
 		}
 
 		element.onmousedown = dragMouseDown
+	}
+
+	static saveAllToJSON = () => {
+		const dataJSON = []
+		Note.allNotes.forEach((n) => {
+			const myObject = {
+				id: n.ID,
+				x: n.posX,
+				y: n.posY,
+				content: n.myContent,
+				width: n.myWidth,
+				height: n.myHeight,
+				totalCount: Note.allCount,
+				notesNow: Note.nowCount,
+			}
+			dataJSON.push(myObject)
+		})
+		const data = JSON.stringify(dataJSON)
+		console.log(data)
+
+		fs.writeFileSync('notesData.json', data)
 	}
 
 	private Instantiate() {

@@ -21,5 +21,9 @@
 	},
 	"dependencies": {
 		"tinymce": "^6.2.0"
+	},
+	"browser": {
+		"fs": false
 	}
+	
 }

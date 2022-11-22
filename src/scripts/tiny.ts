@@ -1,10 +1,13 @@
+import Note from './note'
 const tinymce = require('tinymce')
 
 const overlay: HTMLElement = document.querySelector('#overlay')
 
-const saveText = (textElement: HTMLElement) => {
+const saveText = (textElement: HTMLElement, currentNote: Note) => {
 	const content = tinymce.activeEditor.getContent()
 	textElement.innerHTML = content
+	currentNote.myContent = content
+	currentNote.saveThisNote()
 }
 const closeEditor = (selector: string) => {
 	overlay.classList.remove('overlay-shown')
@@ -14,11 +17,12 @@ const closeEditor = (selector: string) => {
 	document.querySelector(`#${selector}`).remove()
 }
 
-export const create = (selector: string, textElement: HTMLElement) => {
+export const create = (selector: string, textElement: HTMLElement, currentNote: Note) => {
 	//create the overlay
 	overlay.classList.remove('overlay-hidden')
 	overlay.classList.add('overlay-shown')
 	const setInner = () => {
+		console.log(textElement.textContent)
 		tinymce.activeEditor.setContent(textElement.innerHTML)
 	}
 
@@ -30,7 +34,7 @@ export const create = (selector: string, textElement: HTMLElement) => {
 		setup: (editor) => {
 			editor.ui.registry.addButton('saveButton', {
 				icon: 'save',
-				onAction: (_) => saveText(textElement),
+				onAction: (_) => saveText(textElement, currentNote),
 			})
 
 			editor.ui.registry.addButton('closeButton', {

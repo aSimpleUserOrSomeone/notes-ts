@@ -43,7 +43,7 @@ button {
 	grid-template-rows: 1fr 1fr 1fr;
 }
 
-h1 {
+form > h1 {
 	text-align: center;
 	text-shadow: 0 0 3px black, 0 0 16px var(--green2);
 	color: var(--cyan1);
@@ -51,7 +51,7 @@ h1 {
 
 	align-self: center;
 }
-h1:hover {
+form > h1:hover {
 	cursor: default;
 }
 .enter-form > .container {
@@ -87,7 +87,7 @@ h1:hover {
 	cursor: pointer;
 }
 
-header {
+body > header {
 	width: 100vw;
 	height: min-content;
 	min-height: 35px;
@@ -239,6 +239,9 @@ button:hover {
 	grid-column-end: 4;
 
 	overflow: auto;
+
+	resize: none;
+	border: none;
 }
 
 .tox-tinymce {

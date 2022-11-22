@@ -15,6 +15,48 @@ class Note {
 	public myHeight: number
 	public instance: HTMLElement
 
+	static saveAllNotes = () => {
+		Note.allNotes.forEach((n) => {
+			let hreq: XMLHttpRequest = new XMLHttpRequest()
+			hreq.open('POST', 'php/update_db.php', true)
+			hreq.setRequestHeader('Content-type', 'application/x-www-form-urlencoded')
+			hreq.send(
+				`id=${n.ID}&x=${n.posX}&y=${n.posY}&content=${n.myContent}&width=${n.myWidth}&height=${n.myHeight}&totalCount=${Note.allCount}&notesNow=${Note.nowCount}`
+			)
+			hreq.onreadystatechange = () => {
+				if (hreq.readyState == 4 && hreq.status == 200) {
+					console.log(hreq.responseText)
+				}
+			}
+		})
+	}
+
+	static updateCounters = () => {
+		let hreq: XMLHttpRequest = new XMLHttpRequest()
+		hreq.open('POST', 'php/update_counters.php', true)
+		hreq.setRequestHeader('Content-type', 'application/x-www-form-urlencoded')
+		hreq.send(`totalCount=${Note.allCount}&notesNow=${Note.nowCount}`)
+		hreq.onreadystatechange = () => {
+			if (hreq.readyState == 4 && hreq.status == 200) {
+				console.log(hreq.responseText)
+			}
+		}
+	}
+
+	public saveThisNote = () => {
+		let hreq: XMLHttpRequest = new XMLHttpRequest()
+		hreq.open('POST', 'php/update_db.php', true)
+		hreq.setRequestHeader('Content-type', 'application/x-www-form-urlencoded')
+		hreq.send(
+			`id=${this.ID}&x=${this.posX}&y=${this.posY}&content=${this.myContent}&width=${this.myWidth}&height=${this.myHeight}&totalCount=${Note.allCount}&notesNow=${Note.nowCount}`
+		)
+		hreq.onreadystatechange = () => {
+			if (hreq.readyState == 4 && hreq.status == 200) {
+				console.log(hreq.responseText)
+			}
+		}
+	}
+
 	private UpdateCountHTML() {
 		const allCountP: HTMLElement = document.querySelector('.counter-all-p')
 		const nowCountP: HTMLElement = document.querySelector('.counter-now-p')
@@ -23,7 +65,7 @@ class Note {
 		nowCountP.textContent = `Notes now: ${Note.nowCount}`
 	}
 
-	public SortZ = () => {
+	private SortZ = () => {
 		//sorting does nothing
 		if (Note.allNotes.length < 2) return
 
@@ -97,8 +139,8 @@ class Note {
 				closeDragElement()
 			}
 
-			this.instance.style.top = moveToY + 'px'
 			this.instance.style.left = moveToX + 'px'
+			this.instance.style.top = moveToY + 'px'
 		}
 
 		const closeDragElement = () => {
@@ -106,30 +148,19 @@ class Note {
 
 			document.onmouseup = null
 			document.onmousemove = null
+
+			this.UpdateSize()
+			this.saveThisNote()
 		}
 
 		element.onmousedown = dragMouseDown
 	}
 
-	static saveAllToJSON = () => {
-		const dataJSON = []
-		Note.allNotes.forEach((n) => {
-			const myObject = {
-				id: n.ID,
-				x: n.posX,
-				y: n.posY,
-				content: n.myContent,
-				width: n.myWidth,
-				height: n.myHeight,
-				totalCount: Note.allCount,
-				notesNow: Note.nowCount,
-			}
-			dataJSON.push(myObject)
-		})
-		const data = JSON.stringify(dataJSON)
-		console.log(data)
+	private UpdateSize = () => {
+		this.myWidth = this.instance.clientWidth
+		this.myHeight = this.instance.clientHeight
 
-		fs.writeFileSync('notesData.json', data)
+		this.saveThisNote()
 	}
 
 	private Instantiate() {
@@ -142,7 +173,7 @@ class Note {
 
 		const editBtn: HTMLElement = document.createElement('button')
 		const closeBtn: HTMLElement = document.createElement('button')
-		const textField: HTMLElement = document.createElement('p')
+		const textField: HTMLElement = document.createElement('div')
 
 		editBtn.classList.add('edit-btn')
 		editBtn.addEventListener('click', () => {
@@ -150,7 +181,7 @@ class Note {
 			textEditor.id = 'mytextarea'
 			document.querySelector('main').append(textEditor)
 
-			create('mytextarea', textField)
+			create('mytextarea', textField, this)
 		})
 		this.instance.append(editBtn)
 
@@ -161,7 +192,7 @@ class Note {
 		this.instance.append(closeBtn)
 
 		textField.classList.add('textfield-p')
-		textField.textContent = this.myContent
+		textField.innerHTML = this.myContent
 		this.instance.append(textField)
 
 		document.querySelector('main').append(this.instance)
@@ -199,6 +230,8 @@ class Note {
 
 		this.posZ = this.ID
 
+		Note.updateCounters()
+
 		this.Instantiate()
 		Note.allNotes.push(this)
 	}
@@ -210,6 +243,18 @@ class Note {
 
 		//removes this specific note from the array to stop keeping track of it
 		Note.allNotes.splice(Note.allNotes.indexOf(this), 1)
+
+		let hreq: XMLHttpRequest = new XMLHttpRequest()
+		hreq.open('POST', 'php/delete_note.php', true)
+		hreq.setRequestHeader('Content-type', 'application/x-www-form-urlencoded')
+		hreq.send(`id=${this.ID}`)
+		hreq.onreadystatechange = () => {
+			if (hreq.readyState == 4 && hreq.status == 200) {
+				console.log(hreq.responseText)
+			} else {
+				console.log('Error making an XML Request')
+			}
+		}
 	}
 }
 

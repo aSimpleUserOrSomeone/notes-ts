@@ -54,7 +54,7 @@
     $data = [];
     while($row = mysqli_fetch_assoc($result))
     {
-        $data[] = $row;  
+        $data[] = $row;
     }
     file_put_contents("notesData.json", json_encode($data));
 ?>

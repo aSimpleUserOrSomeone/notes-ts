@@ -18,7 +18,7 @@
     <form action="./php/create_fridge.php" method="POST" class="enter-form">
         <h1>The Fridge!</h1>
         <div class="container">
-            <label for="user">User:</label><input type="text" title="Tylko znaki alfanumeryczne" pattern="[A-Za-z0-9]" name="name" id="name">
+            <label for="user">User:</label><input type="text" title="Tylko znaki alfanumeryczne" pattern="[A-Za-z0-9]{3,15}" name="name" id="name">
         </div>
         <button type="submit">To Fridge</button>
     </form>
